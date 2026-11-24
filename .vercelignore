@@ -1,0 +1,10 @@
+node_modules
+.output
+.vercel
+.wrangler
+.nitro
+.tanstack
+.lovable
+/supabase
+/drizzle
+*.log

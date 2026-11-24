@@ -1,0 +1,16 @@
+# Architecture rules
+- Render website branding through the shared BrandLogo image component so the header, footer and sign-in page retain identical supplied lettering; derive the favicon from the same logo artwork.
+- Keep modern HTML parser decoder imports mapped to their own entities version, separately from legacy email renderer imports; their incompatible package export paths must not share a broad alias.
+- Authentication email templates use the managed email SDK handler and shared inline brand styles; preserve all six auth actions so account recovery and verification remain available.
+- Derive sitemap static URLs from required route inclusion decisions; exclude auth and arbitrary external TMDB title IDs without an owned exhaustive public catalogue, and omit non-authoritative lastmod values.
+- Keep player URL construction in browser-safe helpers returning sources in priority order (main first); players start on the first source and switch to the next only on user action or after a load error/timeout prompt.
+- Keep TMDB calls inside server functions; shared calendar/date helpers are browser-safe so the release-day rules can be tested independently.
+- Persist the upcoming catalogue in a read-only public cache, with server-only refresh writes; discovery ranking must never delete an unreleased known title.
+- Use Indian calendar days and each cinema's home-country theatrical dates (US English, JP Japanese, IN Indian), falling back to TMDB primary dates when unavailable, to avoid premiere dates evicting theatrical releases.
+- Prime all homepage row queries concurrently and progressively reveal rows in deduplicated display order; unrelated slow rows must not delay the first posters.
+- Keep rating labels and colours in the browser-safe shared module `src/lib/ratings.ts`; every surface that shows a vote (meter, card badges, counters) imports from it so a vote never renders in a colour that disagrees with the meter.
+- Virtual Theatre rooms are a WebGL (React Three Fiber) auditorium with the movie screen kept as a DOM element synced by a CSS-3D camera, so the host player iframe and guest video stay interactive; the host's tab is screen-captured and streamed to guests over the room WebRTC mesh (fixed voice/video/movie-audio slots, replaceTrack only) because the cross-origin player can't be controlled, synced or used as a texture; room codes persist in the database, while presence, show state and signalling travel over a per-room realtime channel.
+- The app MCP server lives in src/lib/mcp (one tool per file) and verifies Supabase OAuth tokens; tools use the caller-scoped client so RLS decides access, never a service-role key.
+- Cinematic universe line-ups are curated, release-ordered TMDB snapshots in src/lib/universes.data.json (browser-safe) so the home row and /universe pages render with no API wait; regenerate the JSON rather than fetching at runtime.
+- Forgiving search lives in browser-safe src/lib/fuzzy.ts: searchContent queries TMDB with the typed text plus spelling variants and re-ranks by similarity, because TMDB search has no typo tolerance.
+- Server-rendered query data is handed to the browser via @tanstack/react-router-ssr-query (wrapQueryClient false because __root mounts the provider), so pages never refetch rows after hydration.

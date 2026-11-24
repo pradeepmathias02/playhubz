@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://playhubz.lovable.app/sitemap.xml

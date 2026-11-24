@@ -1,0 +1,179 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * PlayHub design system — premium cinematic OTT.
+ * Always-dark theme. Rose Pink primary (#FF4F8B), pure black base,
+ * dark gray surfaces, white text. All colors in oklch.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-glow: var(--primary-glow);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  --background: oklch(0 0 0);
+  --foreground: oklch(0.985 0 0);
+
+  --card: oklch(0.16 0.005 286);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.14 0.005 286);
+  --popover-foreground: oklch(0.985 0 0);
+
+  --primary: oklch(0.68 0.21 5);
+  --primary-foreground: oklch(0.99 0 0);
+  --primary-glow: oklch(0.75 0.18 350);
+
+  --secondary: oklch(0.22 0.005 286);
+  --secondary-foreground: oklch(0.985 0 0);
+
+  --muted: oklch(0.2 0.004 286);
+  --muted-foreground: oklch(0.7 0.01 286);
+
+  --accent: oklch(0.24 0.02 350);
+  --accent-foreground: oklch(0.985 0 0);
+
+  --destructive: oklch(0.6 0.245 27);
+  --destructive-foreground: oklch(0.985 0 0);
+
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.68 0.21 5);
+
+  --sidebar: oklch(0.12 0.005 286);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.68 0.21 5);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.22 0.005 286);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.68 0.21 5);
+
+  --gradient-primary: linear-gradient(135deg, oklch(0.68 0.21 5), oklch(0.75 0.18 350));
+  --shadow-glow: 0 10px 40px -10px oklch(0.68 0.21 5 / 0.5);
+  --shadow-card: 0 20px 50px -20px oklch(0 0 0 / 0.8);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+
+  .glass {
+    background: oklch(0.16 0.005 286 / 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid oklch(1 0 0 / 0.08);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Tactile press feedback: squish + dim while the button is held down */
+  .pressable {
+    transition:
+      transform 110ms cubic-bezier(.34,1.56,.64,1),
+      filter 110ms ease,
+      background-color 150ms ease,
+      box-shadow 150ms ease;
+  }
+  .pressable:active {
+    transform: scale(0.93);
+    filter: brightness(0.82);
+  }
+
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes wl-pop { 0% { transform: scale(1); } 35% { transform: scale(0.88); } 65% { transform: scale(1.12); } 100% { transform: scale(1); } }
+@keyframes wl-shrink { 0% { transform: scale(1); } 40% { transform: scale(0.9); } 100% { transform: scale(1); } }
+@keyframes wl-icon { from { transform: rotate(-180deg) scale(0.4); opacity: 0; } to { transform: rotate(0) scale(1); opacity: 1; } }
+@keyframes wl-ring { from { box-shadow: 0 0 0 0 var(--primary); opacity: 0.8; } to { box-shadow: 0 0 0 14px var(--primary); opacity: 0; } }
+.wl-pop { animation: wl-pop 380ms cubic-bezier(.34,1.56,.64,1); }
+.wl-shrink { animation: wl-shrink 260ms ease-out; }
+.wl-icon { animation: wl-icon 360ms cubic-bezier(.34,1.56,.64,1); }
+.wl-ring { animation: wl-ring 550ms ease-out forwards; }
+@media (prefers-reduced-motion: reduce) { .wl-pop, .wl-shrink, .wl-icon, .wl-ring { animation: none; } }
